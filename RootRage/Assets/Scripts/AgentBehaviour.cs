@@ -15,9 +15,9 @@ public class AgentBehaviour : MonoBehaviour
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
     public Transform EnemyBase;
-    
+    public lifeBar LifeBar;
     private NavMeshAgent agent;
-
+    
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -28,6 +28,14 @@ public class AgentBehaviour : MonoBehaviour
         agent.autoBraking = false;
     }
 
+    void Damage(int damage)
+    {
+        LifeBar.DoDamage(damage);
+        
+        if(LifeBar._damage > LifeBar.totalhp)
+            Destroy(this);
+    }
+    
     void Update()
     {
         // find target

@@ -5,7 +5,7 @@ using UnityEngine;
 public class lifeBar : MonoBehaviour
 {
     public float totalhp;
-    public float damage;
+    public float _damage = 0;
     private Transform Transform;
     private Vector3 originalSize;
     private float decreasePercentage = 0.3f;
@@ -14,13 +14,17 @@ public class lifeBar : MonoBehaviour
     {
         Transform = GetComponent<Transform>();
         originalSize = Transform.localScale;
-        InvokeRepeating("Shrink", 0, 2);
     }
 
+    public void DoDamage(float damage)
+    {
+        _damage += damage;
+        Shrink();
+    }
+    
     void Shrink()
     {
-        float fdamage = (float)damage;
-        float damageprct = damage * originalSize.z / totalhp;
+        float damageprct = _damage * originalSize.z / totalhp;
         Vector3 newSize = Transform.localScale- new Vector3(0,0,damageprct);
         Transform.localScale = newSize;
 
