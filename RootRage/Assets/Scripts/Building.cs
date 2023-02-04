@@ -40,6 +40,7 @@ public class Building : MonoBehaviour
         void Spawn()
         {
             AgentBehaviour mt = Instantiate(Agent, transform);
+            mt.UnitConfig = buildingConfig.unitConfig;
             mt.Team = Team;
             mt.EnemyBase = enemyBase;
             mt.GetComponent<MeshRenderer>().material = mr.material;

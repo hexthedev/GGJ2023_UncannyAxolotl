@@ -17,3 +17,5 @@ MonoBehaviour:
   HP: 20
   Damage: 10
   MoveSpeed: 30
+  attackInterval: 0
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}

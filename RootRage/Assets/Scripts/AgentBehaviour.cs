@@ -13,11 +13,9 @@ public class AgentBehaviour : MonoBehaviour
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
     public Transform EnemyBase;
-    
 
-    public int AgentHealth = 100;
-    public int AgentDamage = 20;
-    public float attackInterval = 0.5f;
+    public UnitConfig UnitConfig;
+    public float currentHP;
     TimerBehaviour damageTimer;
 
     private NavMeshAgent agent;
@@ -26,7 +24,7 @@ public class AgentBehaviour : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-
+        currentHP = UnitConfig.HP;
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
@@ -35,7 +33,7 @@ public class AgentBehaviour : MonoBehaviour
 
     void Update()
     {
-        text.text = $"{AgentHealth}";
+        text.text = $"{currentHP}";
         
         // find target
         if (TargetAgent == null)
@@ -78,7 +76,7 @@ public class AgentBehaviour : MonoBehaviour
             {
                 agent.isStopped = true;
                 // do damage to the other agent
-                StartAttackEnemy(attackInterval, TargetAgent);
+                StartAttackEnemy(TargetAgent);
 
             }
             else
@@ -113,27 +111,27 @@ public class AgentBehaviour : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damageAmount)
+    private void DealDamage(AgentBehaviour target)
     {
-        AgentHealth -= damageAmount;
-        if (AgentHealth <= 0)
+        if (target == null)
+            return;
+        
+        target.currentHP -= UnitConfig.Damage;
+        if (target.currentHP <= 0)
         {
-            Destroy(gameObject);
+            Destroy(target.gameObject);
         }
     }
     
-    void StartAttackEnemy(float interval, AgentBehaviour targetAgent)
+    void StartAttackEnemy(AgentBehaviour targetAgent)
     {
         damageTimer = gameObject.AddComponent<TimerBehaviour>();
-        damageTimer.Interval = interval;
+        damageTimer.Interval = UnitConfig.attackInterval;
         damageTimer.Do = Attack;
         
         void Attack()
         {
-            if (targetAgent != null)
-            {
-                targetAgent.TakeDamage(AgentDamage);
-            }
+            DealDamage(targetAgent);
         }
         
     }

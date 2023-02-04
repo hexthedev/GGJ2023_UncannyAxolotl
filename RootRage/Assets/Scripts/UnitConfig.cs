@@ -10,4 +10,6 @@ public class UnitConfig : ScriptableObject
     public float HP;
     public float Damage;
     public float MoveSpeed;
+    public float attackInterval;
+    public Mesh mesh;
 }
