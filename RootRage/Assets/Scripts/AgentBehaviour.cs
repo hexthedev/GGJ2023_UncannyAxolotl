@@ -1,5 +1,6 @@
 using System.Linq;
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,10 +17,11 @@ public class AgentBehaviour : MonoBehaviour
 
     public int AgentHealth = 100;
     public int AgentDamage = 20;
-    public float attackInterval = 2;
+    public float attackInterval = 0.5f;
     TimerBehaviour damageTimer;
 
     private NavMeshAgent agent;
+    public TMP_Text text;
 
     void Start()
     {
@@ -33,9 +35,16 @@ public class AgentBehaviour : MonoBehaviour
 
     void Update()
     {
+     
+        text.text = $"{AgentHealth}";
+        
         // find target
         if (TargetAgent == null)
         {
+            if (damageTimer != null)
+            {
+                Destroy(damageTimer);
+            }
             var hits = Physics.SphereCastAll(
                 transform.position,
                 1f,
@@ -70,7 +79,7 @@ public class AgentBehaviour : MonoBehaviour
             {
                 agent.isStopped = true;
                 // do damage to the other agent
-                startAttackEnemy(attackInterval, TargetAgent);
+                StartAttackEnemy(attackInterval, TargetAgent);
 
             }
             else
@@ -105,19 +114,19 @@ public class AgentBehaviour : MonoBehaviour
         }
     }
 
-    void takeDamage(int damageAmount)
+    void TakeDamage(int damageAmount)
     {
         AgentHealth -= damageAmount;
         if (AgentHealth <= 0)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
     
-    void startAttackEnemy(float interval, AgentBehaviour targetAgent)
+    void StartAttackEnemy(float interval, AgentBehaviour targetAgent)
     {
-        if(damageTimer != null)
-            Destroy(damageTimer);
+        // if(damageTimer != null)
+        //     Destroy(damageTimer);
         
         damageTimer = gameObject.AddComponent<TimerBehaviour>();
         damageTimer.Interval = interval;
@@ -125,9 +134,9 @@ public class AgentBehaviour : MonoBehaviour
         
         void Attack()
         {
-            if (targetAgent)
+            if (targetAgent != null)
             {
-                TargetAgent.takeDamage(this.AgentDamage);
+                targetAgent.TakeDamage(AgentDamage);
             }
         }
         
@@ -135,7 +144,7 @@ public class AgentBehaviour : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(transform.position, 1f);
+        // Gizmos.DrawSphere(transform.position, 1f);
         Gizmos.DrawSphere(transform.position, 0.1f);
         Gizmos.DrawSphere(transform.position + transform.forward * 2, 0.1f);
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
