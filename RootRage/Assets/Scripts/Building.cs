@@ -51,7 +51,6 @@ public class Building : MonoBehaviour
             mt.UnitConfig = buildingConfig.unitConfig;
             mt.Team = Team;
             mt.EnemyBase = enemyBase;
-            mt.GetComponent<MeshRenderer>().material = mr.material;
         }
     }
 }
