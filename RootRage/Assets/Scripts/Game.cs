@@ -31,7 +31,7 @@ public class Game : MonoBehaviour
 
         for (var i = 0; i < Agents.Length; i++)
         {
-            Agents[i].Init(i);
+            Agents[i].Init(i, Grid);
             Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
         }
 
