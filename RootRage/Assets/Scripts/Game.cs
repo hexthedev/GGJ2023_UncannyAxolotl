@@ -2,6 +2,7 @@ using System;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Game : MonoBehaviour
     public float spawnRate = 2;
 
     TimerBehaviour _choiceTimer;
+
+    public UnitConfig[] UnitConfigs;
     
     void Awake()
     {
@@ -60,6 +63,7 @@ public class Game : MonoBehaviour
         cell.IsOccupied = true;
         Building go = Instantiate(Building, Grid.transform);
         go.Team = player;
+        go.unitToSpawn = UnitConfigs[Random.Range(0, UnitConfigs.Length)];
         cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;

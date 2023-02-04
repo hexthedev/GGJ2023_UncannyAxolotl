@@ -11,6 +11,8 @@ public class Building : MonoBehaviour
 
     TimerBehaviour t;
     public TMP_Text text;
+
+    public UnitConfig unitToSpawn;
     
     void Awake()
     {
