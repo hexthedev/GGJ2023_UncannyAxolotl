@@ -26,14 +26,14 @@ public class SceneController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.O))
         {
             GameObject instance = Instantiate(homeAgent) as GameObject; 
-            instance.GetComponent<MoveTo>().home = homeBase;
-            instance.GetComponent<MoveTo>().goal = awayBase;
+            // instance.GetComponent<AgentBehaviour>().home = homeBase;
+            // instance.GetComponent<AgentBehaviour>().goal = awayBase;
         };
         if (Input.GetKeyDown(KeyCode.P))
         {
             GameObject instance = Instantiate(awayAgent) as GameObject;
-            instance.GetComponent<MoveTo>().home = awayBase;
-            instance.GetComponent<MoveTo>().goal = homeBase;
+            // instance.GetComponent<AgentBehaviour>().home = awayBase;
+            // instance.GetComponent<AgentBehaviour>().goal = homeBase;
         };
     }
     

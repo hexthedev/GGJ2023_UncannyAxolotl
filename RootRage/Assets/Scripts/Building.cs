@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public MoveTo Agent;
+    public AgentBehaviour Agent;
+    public int Team;
     
     MeshRenderer mr;
 
@@ -27,7 +28,7 @@ public class Building : MonoBehaviour
         mr.material = m;
     }
     
-    public void StartSpawnUnit(float interval, Transform goal)
+    public void StartSpawnUnit(float interval, Transform enemyBase)
     {
         if(t != null)
             Destroy(t);
@@ -38,10 +39,10 @@ public class Building : MonoBehaviour
 
         void Spawn()
         {
-            MoveTo mt = Instantiate(Agent, transform);
+            AgentBehaviour mt = Instantiate(Agent, transform);
+            mt.Team = Team;
+            mt.EnemyBase = enemyBase;
             mt.GetComponent<MeshRenderer>().material = mr.material;
-            mt.home = transform;
-            mt.goal = goal;
         }
     }
 }

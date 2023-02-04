@@ -58,6 +58,7 @@ public class Game : MonoBehaviour
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
         Building go = Instantiate(Building, Grid.transform);
+        go.Team = player;
         cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;
