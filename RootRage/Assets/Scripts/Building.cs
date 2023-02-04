@@ -7,14 +7,13 @@ public class Building : MonoBehaviour
     public AgentBehaviour Agent;
     public int Team;
     
-    MeshRenderer mr;
+    public MeshRenderer mr;
 
     TimerBehaviour t;
     public TMP_Text text;
     
     void Awake()
     {
-        mr = GetComponent<MeshRenderer>();
     }
 
     void Update()
