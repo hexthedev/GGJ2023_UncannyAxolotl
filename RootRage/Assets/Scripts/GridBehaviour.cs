@@ -1,9 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
 public class GridBehaviour : MonoBehaviour
 {
     public CellBehaviour Prefab;
+
+    public event Action<int> OnCellClicked; 
 
     public int X;
     public int Y;
@@ -17,9 +20,10 @@ public class GridBehaviour : MonoBehaviour
     void Start()
     {
         SpawnGrid();
+        SetInteractable();
     }
 
-    void SetInteractable(params Vector2[] coords)
+    public void SetInteractable(params Vector2[] coords)
     {
         foreach (CellData cellData in Grid)
             cellData.Viz.gameObject.SetActive(false);
@@ -27,7 +31,11 @@ public class GridBehaviour : MonoBehaviour
         foreach (int index in coords.Select(c => GetIndex(c)))
             Grid[index].Viz.gameObject.SetActive(true);
     }
-    
+
+    public CellData GetCellData(int index) => Grid[index];
+    public CellData GetCellData(Vector2 index) => Grid[GetIndex(index)];
+
+
     void SpawnGrid()
     {
         if (Grid != null)
@@ -46,6 +54,7 @@ public class GridBehaviour : MonoBehaviour
 
             Grid[index] = new CellData()
             {
+                Index = index,
                 Viz = Instantiate(Prefab, transform),
                 Position = pos
             };
@@ -54,10 +63,10 @@ public class GridBehaviour : MonoBehaviour
             Grid[index].Viz.transform.localScale = Scale;
 
             int pin = index;
-            Grid[index].Viz.OnClicked += () => Debug.Log(pin);
+            Grid[index].Viz.OnClicked += () => OnCellClicked?.Invoke(pin);
         }
     }
 
-    int GetIndex(Vector2 vec) => (int)(vec[0] + vec[1] * X);
-    Vector2 GetCoord(int coord) => new Vector2(coord % X, coord / X);
+    public int GetIndex(Vector2 vec) => (int)(vec[0] + vec[1] * X);
+    public Vector2 GetCoord(int coord) => new Vector2(coord % X, coord / X);
 }
