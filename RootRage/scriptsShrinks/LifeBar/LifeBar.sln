@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1704.4
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LifeBar", "LifeBar\LifeBar.csproj", "{9EF02410-10FE-4F80-9848-9DA5FEFF6B8E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9EF02410-10FE-4F80-9848-9DA5FEFF6B8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF02410-10FE-4F80-9848-9DA5FEFF6B8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF02410-10FE-4F80-9848-9DA5FEFF6B8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF02410-10FE-4F80-9848-9DA5FEFF6B8E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D74B7F92-8676-4394-8AD2-EFDED93BD9E1}
+	EndGlobalSection
+EndGlobal
