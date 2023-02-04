@@ -62,29 +62,29 @@ public class AgentBehaviour : MonoBehaviour
             TargetBuilding = buildings.First();
     }
 
-    bool CanIAttack(AgentBehaviour TargetAgent)
+    bool CanIAttack(AgentBehaviour target)
     {
-        float distance = (TargetAgent.transform.position - transform.position).magnitude;
+        float distance = (target.transform.position - transform.position).magnitude;
 
-        return distance < 1;
+        return distance < 1f;
     }
 
-    bool CanIAttack(Building TargetBuilding)
+    bool CanIAttack(Building target)
     {
-        float distance = (TargetBuilding.transform.position - transform.position).magnitude;
+        float distance = (target.transform.position - transform.position).magnitude;
 
-        return distance < 5f;
+        return distance < 2f;
     }
 
-    void MoveTowards(AgentBehaviour TargetAgent)
+    void MoveTowards(AgentBehaviour target)
     {
-        agent.destination = TargetAgent.transform.position;
+        agent.destination = target.transform.position;
         agent.isStopped = false;
     }
 
-    void MoveTowards(Building TargetBuilding)
+    void MoveTowards(Building target)
     {
-        agent.destination = TargetBuilding.transform.position;
+        agent.destination = target.transform.position;
         agent.isStopped = false;
     }
 
@@ -95,11 +95,11 @@ public class AgentBehaviour : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+        text.text = $"{currentHP}";
         if (damageTimer != null)
         {
             return;
         }
-        text.text = $"{currentHP}";
 
         // find target
         FindTarget();
@@ -146,6 +146,7 @@ public class AgentBehaviour : MonoBehaviour
 
         void Attack()
         {
+            Debug.Log("Deal damage to a building");
             if (target == null)
             {
                 Destroy(damageTimer);
@@ -164,6 +165,7 @@ public class AgentBehaviour : MonoBehaviour
 
         void Attack()
         {
+            Debug.Log("Deal damage to an agent");
             if (target == null)
             {
                 Destroy(damageTimer);
