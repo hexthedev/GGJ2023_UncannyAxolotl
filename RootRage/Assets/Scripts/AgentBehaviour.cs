@@ -31,6 +31,63 @@ public class AgentBehaviour : MonoBehaviour
         agent.autoBraking = false;
     }
 
+    void FindTarget()
+    {
+        if (TargetAgent != null || TargetBuilding != null) { return; }
+
+        var hits = Physics.SphereCastAll(
+            transform.position,
+            1f,
+            transform.forward,
+            2
+        );
+
+        var agents = hits
+            .Select(a => a.collider.gameObject.GetComponent<AgentBehaviour>())
+            .Where(a => a != null)
+            .Where(a => a.Team != Team);
+
+        if (agents.Any())
+        {
+            TargetAgent = agents.First();
+            return;
+        }
+
+        var buildings = hits
+            .Select(h => h.collider.gameObject.GetComponent<Building>())
+            .Where(b => b != null)
+            .Where(b => b.Team != Team);
+
+        if (buildings.Any())
+            TargetBuilding = buildings.First();
+    }
+
+    bool CanIAttack(AgentBehaviour TargetAgent)
+    {
+        float distance = (TargetAgent.transform.position - transform.position).magnitude;
+
+        return distance < 1;
+    }
+
+    bool CanIAttack(Building TargetBuilding)
+    {
+        float distance = (TargetBuilding.transform.position - transform.position).magnitude;
+
+        return distance < 5f;
+    }
+
+    void MoveTowards(AgentBehaviour TargetAgent)
+    {
+        agent.destination = TargetAgent.transform.position;
+        agent.isStopped = false;
+    }
+
+    void MoveTowards(Building TargetBuilding)
+    {
+        agent.destination = TargetBuilding.transform.position;
+        agent.isStopped = false;
+    }
+
     void Update()
     {
         if (currentHP <= 0)
@@ -38,130 +95,86 @@ public class AgentBehaviour : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
-        text.text = $"{currentHP}";
-        
-        // find target
-        if (TargetAgent == null)
+        if (damageTimer != null)
         {
-            if (damageTimer != null)
-            {
-                Destroy(damageTimer);
-            }
-            var hits = Physics.SphereCastAll(
-                transform.position,
-                1f,
-                transform.forward,
-                2
-            );
-
-            var agents = hits
-                .Select(a => a.collider.gameObject.GetComponent<AgentBehaviour>())
-                .Where(a => a != null)
-                .Where(a => a.Team != Team);
-
-            if (agents.Any())
-                TargetAgent = agents.First();
-            else
-            {
-                var buildings = hits
-                    .Select(h => h.collider.gameObject.GetComponent<Building>())
-                    .Where(b => b != null)
-                    .Where(b => b.Team != Team);
-
-                if (buildings.Any())
-                    TargetBuilding = buildings.First();
-            }
+            return;
         }
+        text.text = $"{currentHP}";
+
+        // find target
+        FindTarget();
 
         if (TargetAgent != null)
         {
-            float distance = (TargetAgent.transform.position - transform.position).magnitude;
-
-            if (distance < 1)
+            if (CanIAttack(TargetAgent))
             {
-                agent.isStopped = true;
-                // do damage to the other agent
-                StartAttackEnemy(TargetAgent);
-
+                StartAttack(TargetAgent);
             }
             else
             {
-                agent.destination = TargetAgent.transform.position;
-                agent.isStopped = false;
+                MoveTowards(TargetAgent);
             }
-            
-            // TRY ATTACK
+            return;
         }
-        else
+
+        if (TargetBuilding != null)
         {
-            if (TargetBuilding != null)
+            if (CanIAttack(TargetBuilding))
             {
-                float distance = (TargetBuilding.transform.position - transform.position).magnitude;
-
-                if (distance < 10f)
-                {
-                    agent.isStopped = true;
-                    // do damage to the building
-                    StartAttackBuilding(TargetBuilding);
-                }
-                else
-                {
-                    agent.destination = TargetBuilding.transform.position;
-                    agent.isStopped = false;
-                }
-                // TRY ATTACK  
+                StartAttack(TargetBuilding);
             }
+            else
+            {
+                MoveTowards(TargetBuilding);
+            }
+            return;
         }
 
-        if (TargetAgent == null && TargetBuilding == null)
+        if (EnemyBase != null)
         {
             agent.destination = EnemyBase.transform.position;
             agent.isStopped = false;
         }
     }
 
-    private void DealDamageToEnemy(AgentBehaviour target)
+    void StartAttack(Building target)
     {
-        if (target == null)
-            return;
-        target.currentHP -= UnitConfig.Damage;
-    }
-
-    private void DealDamageToBuilding(Building target)
-    {
-        if (target == null)
-            return;
-        target.currentHP -= UnitConfig.Damage;
-
-    }
-    
-    void StartAttackEnemy(AgentBehaviour targetAgent)
-    {
+        agent.isStopped = true;
         damageTimer = gameObject.AddComponent<TimerBehaviour>();
         damageTimer.Interval = UnitConfig.attackInterval;
         damageTimer.Do = Attack;
-        
+
         void Attack()
         {
-            DealDamageToEnemy(targetAgent);
+            if (target == null)
+            {
+                Destroy(damageTimer);
+                return;
+            }
+            target.currentHP -= UnitConfig.Damage;
         }
-        
     }
-    
-    void StartAttackBuilding(Building targetBuilding)
+
+    void StartAttack(AgentBehaviour target)
     {
+        agent.isStopped = true;
         damageTimer = gameObject.AddComponent<TimerBehaviour>();
         damageTimer.Interval = UnitConfig.attackInterval;
         damageTimer.Do = Attack;
-        
+
         void Attack()
         {
-            DealDamageToBuilding(targetBuilding);
+            if (target == null)
+            {
+                Destroy(damageTimer);
+                return;
+            }
+            target.currentHP -= UnitConfig.Damage;
         }
-        
+
     }
-    
+
+
     void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, 0.1f);
