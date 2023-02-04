@@ -426,7 +426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1018164460
 Transform:
   m_ObjectHideFlags: 0
@@ -574,6 +574,9 @@ MonoBehaviour:
   Grid: {fileID: 1098504793}
   Building: {fileID: 2631770343230101262, guid: c38b4264a967243aba441387d17cdc53,
     type: 3}
+  buildings:
+  - {fileID: 11400000, guid: 4264cdead3647484686a65eeb04cf0af, type: 2}
+  - {fileID: 11400000, guid: 26cda7df7d35ce8408fa69c151d61671, type: 2}
   Agents:
   - {fileID: 11400000, guid: 26afdf841a03ef64b9c86d1cf7d9b218, type: 2}
   - {fileID: 11400000, guid: ee837d9de0c64564f96f8158cabba672, type: 2}
@@ -1238,6 +1241,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5832340478598275328, guid: 85b2399ac3660de4ba981313e06e5471,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5832340478598275329, guid: 85b2399ac3660de4ba981313e06e5471,
         type: 3}

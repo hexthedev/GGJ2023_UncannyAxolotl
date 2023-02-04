@@ -9,6 +9,8 @@ public class Game : MonoBehaviour
     public GridBehaviour Grid;
     public Building Building;
 
+    public BuildingConfig[] buildings;
+
     public AGameAgent[] Agents;
     public Material[] Materials;
     public TMP_Text[] TimerTexts;
@@ -62,8 +64,8 @@ public class Game : MonoBehaviour
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
         Building go = Instantiate(Building, Grid.transform);
+        go.buildingConfig = buildings[Random.Range(0, buildings.Length)];
         go.Team = player;
-        go.unitToSpawn = UnitConfigs[Random.Range(0, UnitConfigs.Length)];
         cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;

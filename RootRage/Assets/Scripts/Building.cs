@@ -6,13 +6,12 @@ public class Building : MonoBehaviour
 {
     public AgentBehaviour Agent;
     public int Team;
+    public BuildingConfig buildingConfig;
     
     public MeshRenderer mr;
 
     TimerBehaviour t;
     public TMP_Text text;
-
-    public UnitConfig unitToSpawn;
     
     void Awake()
     {
