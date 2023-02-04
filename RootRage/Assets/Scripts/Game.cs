@@ -1,44 +1,56 @@
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Game : MonoBehaviour
 {
     public GridBehaviour Grid;
     public Building Building;
 
-    
     public AGameAgent[] Agents;
     public Material[] Materials;
-    
-    List<int> _takenIndices = new();
+
+
+    CellData[] HomeBases;
 
     public float testInterval = 5;
-    float curtime = 0;
-    
-    void Start()
-    {
-        SpawnBuildingAtIndex(0,Grid.GetIndex(new Vector2(0,0)));
-        SpawnBuildingAtIndex(1,Grid.GetIndex(new Vector2(4,4)));
 
+    void Awake()
+    {
+        Grid.Init();
+        HomeBases = new[] {Grid.Grid[0], Grid.Grid[Grid.Grid.Length-1]};
+        
+        SpawnBuildingAtIndex(0,0);
+        SpawnBuildingAtIndex(1,Grid.Grid.Length-1);
+
+        foreach (CellData homeBase in HomeBases)
+        {
+            homeBase.Building.StartSpawnUnit(2, HomeBases[(homeBase.Index+1)%2].Building.transform);
+        }
+        
         for (var i = 0; i < Agents.Length; i++)
         {
             Agents[i].Init(i);
-            Agents[i].OnDecidePlaceBuilding += SpawnBuildingAtIndex;
+            Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
         }
-    }
 
-    void Update()
-    {
-        curtime += Time.deltaTime;
-
-        if (curtime > testInterval)
+        var tb = gameObject.AddComponent<TimerBehaviour>();
+        tb.Interval = testInterval;
+        tb.Do = () =>
         {
             foreach (AGameAgent aGameAgent in Agents)
                 aGameAgent.MakeBuildingDecision(Grid);
+        };
+    }
 
-            curtime = 0;
-        }
+    void HandlePlaceBuild(int player, int coord)
+    {
+        SpawnBuildingAtIndex(player, coord);
+
+        CellData data = Grid.Grid[coord];
+        data.Building.StartSpawnUnit(2, HomeBases[(data.Index+1)%2].Building.transform);
     }
 
     void SpawnBuildingAtIndex(int player, int coord)
@@ -47,8 +59,8 @@ public class Game : MonoBehaviour
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
         Building go = Instantiate(Building, Grid.transform);
+        cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;
-        _takenIndices.Add(coord);
     }
 }

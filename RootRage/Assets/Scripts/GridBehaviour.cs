@@ -18,7 +18,7 @@ public class GridBehaviour : MonoBehaviour
     
     public CellData[] Grid;
 
-    void Start()
+    public void Init()
     {
         SpawnGrid();
         SetInteractable();
