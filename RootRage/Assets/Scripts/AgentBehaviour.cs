@@ -33,6 +33,12 @@ public class AgentBehaviour : MonoBehaviour
 
     void Update()
     {
+        if (currentHP <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         text.text = $"{currentHP}";
         
         // find target
@@ -93,8 +99,12 @@ public class AgentBehaviour : MonoBehaviour
             {
                 float distance = (TargetBuilding.transform.position - transform.position).magnitude;
 
-                if (distance < 1)
+                if (distance < 10f)
+                {
                     agent.isStopped = true;
+                    // do damage to the building
+                    StartAttackBuilding(TargetBuilding);
+                }
                 else
                 {
                     agent.destination = TargetBuilding.transform.position;
@@ -111,16 +121,19 @@ public class AgentBehaviour : MonoBehaviour
         }
     }
 
-    private void DealDamage(AgentBehaviour target)
+    private void DealDamageToEnemy(AgentBehaviour target)
     {
         if (target == null)
             return;
-        
         target.currentHP -= UnitConfig.Damage;
-        if (target.currentHP <= 0)
-        {
-            Destroy(target.gameObject);
-        }
+    }
+
+    private void DealDamageToBuilding(Building target)
+    {
+        if (target == null)
+            return;
+        target.currentHP -= UnitConfig.Damage;
+
     }
     
     void StartAttackEnemy(AgentBehaviour targetAgent)
@@ -131,7 +144,20 @@ public class AgentBehaviour : MonoBehaviour
         
         void Attack()
         {
-            DealDamage(targetAgent);
+            DealDamageToEnemy(targetAgent);
+        }
+        
+    }
+    
+    void StartAttackBuilding(Building targetBuilding)
+    {
+        damageTimer = gameObject.AddComponent<TimerBehaviour>();
+        damageTimer.Interval = UnitConfig.attackInterval;
+        damageTimer.Do = Attack;
+        
+        void Attack()
+        {
+            DealDamageToBuilding(targetBuilding);
         }
         
     }

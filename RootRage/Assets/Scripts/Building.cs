@@ -10,17 +10,25 @@ public class Building : MonoBehaviour
     
     public MeshRenderer mr;
 
+    public float currentHP;
     TimerBehaviour t;
     public TMP_Text text;
     
-    void Awake()
+    void Start()
     {
+        currentHP = buildingConfig.HP;
     }
 
     void Update()
     {
-        if(t != null)
-            text.text = $"{t.CurrentTime.ToString("F1")}/{t.Interval.ToString("F1")}";
+        if (currentHP <= 0)
+        {
+            Destroy(gameObject);
+        }
+        text.text = $"{currentHP}";
+        // if(t != null)
+            // text.text = $"{t.CurrentTime.ToString("F1")}/{t.Interval.ToString("F1")}";
+
     }
 
     public void SetMaterial(Material m)

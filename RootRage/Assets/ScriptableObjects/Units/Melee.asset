@@ -15,7 +15,7 @@ MonoBehaviour:
   Range: 1
   Cost: 50
   HP: 70
-  Damage: 15
+  Damage: 100
   MoveSpeed: 10
   attackInterval: 0
   mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

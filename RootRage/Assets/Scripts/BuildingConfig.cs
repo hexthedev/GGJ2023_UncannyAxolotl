@@ -6,5 +6,6 @@ using UnityEngine;
 public class BuildingConfig : ScriptableObject
 {
     public Mesh mesh;
+    public float HP;
     public UnitConfig unitConfig;
 }
