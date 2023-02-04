@@ -1269,6 +1269,10 @@ MonoBehaviour:
   Grid: {fileID: 1098504793}
   Building: {fileID: 3565795509941322785, guid: c38b4264a967243aba441387d17cdc53,
     type: 3}
+  Agents:
+  - {fileID: 11400000, guid: 26afdf841a03ef64b9c86d1cf7d9b218, type: 2}
+  - {fileID: 11400000, guid: ee837d9de0c64564f96f8158cabba672, type: 2}
+  testInterval: 1
 --- !u!1 &1500879361
 GameObject:
   m_ObjectHideFlags: 0

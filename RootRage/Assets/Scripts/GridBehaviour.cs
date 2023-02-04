@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -23,12 +24,12 @@ public class GridBehaviour : MonoBehaviour
         SetInteractable();
     }
 
-    public void SetInteractable(params Vector2[] coords)
+    public void SetInteractable(params int[] coords)
     {
         foreach (CellData cellData in Grid)
             cellData.Viz.gameObject.SetActive(false);
 
-        foreach (int index in coords.Select(c => GetIndex(c)))
+        foreach (int index in coords)
             Grid[index].Viz.gameObject.SetActive(true);
     }
 
@@ -69,4 +70,24 @@ public class GridBehaviour : MonoBehaviour
 
     public int GetIndex(Vector2 vec) => (int)(vec[0] + vec[1] * X);
     public Vector2 GetCoord(int coord) => new Vector2(coord % X, coord / X);
+
+    public int[] GetNeighbours(int index)
+    {
+        int[] neighbours = new int[4];
+        int pointer = 0;
+
+        if (index % X != 0)
+            neighbours[pointer++] = index - 1;
+
+        if (index % X != X - 1)
+            neighbours[pointer++] = index + 1;
+
+        if (index / X != 0)
+            neighbours[pointer++] = index - X;
+
+        if (index / X != Y - 1)
+            neighbours[pointer++] = index + X;
+
+        return neighbours[..pointer];
+    }
 }

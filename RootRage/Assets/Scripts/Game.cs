@@ -1,46 +1,49 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
     public GridBehaviour Grid;
     public GameObject Building;
 
+    public AGameAgent[] Agents;
+    
     List<int> _takenIndices = new();
 
-    float totalTime = 5;
+    public float testInterval = 5;
     float curtime = 0;
     
     void Start()
     {
-        Grid.OnCellClicked += SpawnBuildingAtIndex;
-        
-        SpawnBuildingAtIndex(Grid.GetIndex(new Vector2(0,0)));
-        SpawnBuildingAtIndex(Grid.GetIndex(new Vector2(4,4)));
+        SpawnBuildingAtIndex(0,Grid.GetIndex(new Vector2(0,0)));
+        SpawnBuildingAtIndex(1,Grid.GetIndex(new Vector2(4,4)));
+
+        for (var i = 0; i < Agents.Length; i++)
+        {
+            Agents[i].Init(i);
+            Agents[i].OnDecidePlaceBuilding += SpawnBuildingAtIndex;
+        }
     }
 
     void Update()
     {
         curtime += Time.deltaTime;
 
-        if (curtime > totalTime)
+        if (curtime > testInterval)
         {
-            int take = Random.Range(0, 25);
+            foreach (AGameAgent aGameAgent in Agents)
+                aGameAgent.MakeBuildingDecision(Grid);
 
-            while (_takenIndices.Contains(take))
-                take = Random.Range(0, 25);
-            
-            Grid.SetInteractable(Grid.GetCoord(take));
             curtime = 0;
         }
     }
 
-    void SpawnBuildingAtIndex(int coord)
+    void SpawnBuildingAtIndex(int player, int coord)
     {
         CellData cell = Grid.GetCellData(coord);
+        cell.PlayerIndex = player;
+        cell.IsOccupied = true;
         GameObject go = Instantiate(Building, Grid.transform);
         go.transform.localPosition = cell.Position - Vector3.up;
         _takenIndices.Add(coord);
