@@ -1,4 +1,5 @@
 using System.Linq;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,17 +8,19 @@ using UnityEngine.AI;
 
 public class AgentBehaviour : MonoBehaviour
 {
-    // public Transform goal;
-    // public Transform home;
-    public Transform current;
-
     public int Team;
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
     public Transform EnemyBase;
-    public lifeBar LifeBar;
-    private NavMeshAgent agent;
     
+
+    public int AgentHealth = 100;
+    public int AgentDamage = 20;
+    public float attackInterval = 2;
+    TimerBehaviour damageTimer;
+
+    private NavMeshAgent agent;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -28,14 +31,6 @@ public class AgentBehaviour : MonoBehaviour
         agent.autoBraking = false;
     }
 
-    void Damage(int damage)
-    {
-        LifeBar.DoDamage(damage);
-        
-        if(LifeBar._damage > LifeBar.totalhp)
-            Destroy(this);
-    }
-    
     void Update()
     {
         // find target
@@ -43,7 +38,7 @@ public class AgentBehaviour : MonoBehaviour
         {
             var hits = Physics.SphereCastAll(
                 transform.position,
-                0.5f,
+                1f,
                 transform.forward,
                 2
             );
@@ -72,7 +67,12 @@ public class AgentBehaviour : MonoBehaviour
             float distance = (TargetAgent.transform.position - transform.position).magnitude;
 
             if (distance < 1)
+            {
                 agent.isStopped = true;
+                // do damage to the other agent
+                startAttackEnemy(attackInterval, TargetAgent);
+
+            }
             else
             {
                 agent.destination = TargetAgent.transform.position;
@@ -105,8 +105,37 @@ public class AgentBehaviour : MonoBehaviour
         }
     }
 
+    void takeDamage(int damageAmount)
+    {
+        AgentHealth -= damageAmount;
+        if (AgentHealth <= 0)
+        {
+            Destroy(this);
+        }
+    }
+    
+    void startAttackEnemy(float interval, AgentBehaviour targetAgent)
+    {
+        if(damageTimer != null)
+            Destroy(damageTimer);
+        
+        damageTimer = gameObject.AddComponent<TimerBehaviour>();
+        damageTimer.Interval = interval;
+        damageTimer.Do = Attack;
+        
+        void Attack()
+        {
+            if (targetAgent)
+            {
+                TargetAgent.takeDamage(this.AgentDamage);
+            }
+        }
+        
+    }
+    
     void OnDrawGizmos()
     {
+        Gizmos.DrawSphere(transform.position, 1f);
         Gizmos.DrawSphere(transform.position, 0.1f);
         Gizmos.DrawSphere(transform.position + transform.forward * 2, 0.1f);
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
