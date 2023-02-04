@@ -35,7 +35,6 @@ public class AgentBehaviour : MonoBehaviour
 
     void Update()
     {
-     
         text.text = $"{AgentHealth}";
         
         // find target
@@ -125,9 +124,6 @@ public class AgentBehaviour : MonoBehaviour
     
     void StartAttackEnemy(float interval, AgentBehaviour targetAgent)
     {
-        // if(damageTimer != null)
-        //     Destroy(damageTimer);
-        
         damageTimer = gameObject.AddComponent<TimerBehaviour>();
         damageTimer.Interval = interval;
         damageTimer.Do = Attack;
@@ -144,7 +140,6 @@ public class AgentBehaviour : MonoBehaviour
     
     void OnDrawGizmos()
     {
-        // Gizmos.DrawSphere(transform.position, 1f);
         Gizmos.DrawSphere(transform.position, 0.1f);
         Gizmos.DrawSphere(transform.position + transform.forward * 2, 0.1f);
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
