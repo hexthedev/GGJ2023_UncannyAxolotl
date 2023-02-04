@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     CellData[] HomeBases;
 
     public float testInterval = 5;
+    public float spawnRate = 2;
 
     void Awake()
     {
@@ -26,10 +27,8 @@ public class Game : MonoBehaviour
         SpawnBuildingAtIndex(1,Grid.Grid.Length-1);
 
         foreach (CellData homeBase in HomeBases)
-        {
-            homeBase.Building.StartSpawnUnit(2, HomeBases[(homeBase.Index+1)%2].Building.transform);
-        }
-        
+            homeBase.Building.StartSpawnUnit(spawnRate, HomeBases[(homeBase.Index+1)%2].Building.transform);
+
         for (var i = 0; i < Agents.Length; i++)
         {
             Agents[i].Init(i);
@@ -50,7 +49,7 @@ public class Game : MonoBehaviour
         SpawnBuildingAtIndex(player, coord);
 
         CellData data = Grid.Grid[coord];
-        data.Building.StartSpawnUnit(2, HomeBases[(data.Index+1)%2].Building.transform);
+        data.Building.StartSpawnUnit(spawnRate, HomeBases[(data.Index+1)%2].Building.transform);
     }
 
     void SpawnBuildingAtIndex(int player, int coord)

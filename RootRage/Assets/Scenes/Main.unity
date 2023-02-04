@@ -1275,7 +1275,8 @@ MonoBehaviour:
   Materials:
   - {fileID: 2100000, guid: de5cb5cc0e6317346b38ec4a384f0474, type: 2}
   - {fileID: 2100000, guid: 4681ac45e01751040bd366340ea7cef9, type: 2}
-  testInterval: 4
+  testInterval: 2
+  spawnRate: 1.3
 --- !u!1 &1500879361
 GameObject:
   m_ObjectHideFlags: 0

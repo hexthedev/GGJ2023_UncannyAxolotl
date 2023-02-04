@@ -41,20 +41,20 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\GameUtilities.cs" />
-     <Compile Include="Assets\Scripts\CellBehaviour.cs" />
-     <Compile Include="Assets\Scripts\GridBehaviour.cs" />
-     <Compile Include="Assets\Scripts\CellData.cs" />
-     <Compile Include="Assets\Scripts\NavMeshUtil.cs" />
+     <Compile Include="Assets\Scripts\TimerBehaviour.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
-     <Compile Include="Assets\Scripts\MoveTo.cs" />
      <Compile Include="Assets\Scripts\lifeBar.cs" />
-     <Compile Include="Assets\Scripts\Agents\HumanAgent.cs" />
+     <Compile Include="Assets\Scripts\CellBehaviour.cs" />
      <Compile Include="Assets\Scripts\Agents\AGameAgent.cs" />
+     <Compile Include="Assets\Scripts\GridBehaviour.cs" />
+     <Compile Include="Assets\Scripts\Agents\HumanAgent.cs" />
+     <Compile Include="Assets\Scripts\CellData.cs" />
      <Compile Include="Assets\Scripts\Agents\EnemyRandomAgent.cs" />
      <Compile Include="Assets\Scripts\Building.cs" />
-     <Compile Include="Assets\Scripts\Timer.cs" />
+     <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\NavMeshUtil.cs" />
+     <Compile Include="Assets\Scripts\MoveTo.cs" />
      <None Include="Assets\Scripts\Axolotyl.asmdef" />
      <Folder Include="Assets\Scripts" />
      <Folder Include="Assets\Scripts\Agents" />
