@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e7b8e370ca49e469606a8456e98242, type: 3}
   m_Name: Normal
   m_EditorClassIdentifier: 
-  mesh: {fileID: 8295304625031256650, guid: 6e119f88d35a04ba6bb44412bbd803f3, type: 3}
   HP: 50
+  buildingPrefab: {fileID: 2631770343230101262, guid: c38b4264a967243aba441387d17cdc53,
+    type: 3}
   unitConfig: {fileID: 11400000, guid: a1692cc7bacf16349bbc7ebcd984a1cf, type: 2}

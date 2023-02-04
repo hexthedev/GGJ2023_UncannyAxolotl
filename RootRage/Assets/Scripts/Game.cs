@@ -7,8 +7,6 @@ using Random = UnityEngine.Random;
 public class Game : MonoBehaviour
 {
     public GridBehaviour Grid;
-    public Building Building;
-
     public BuildingConfig[] buildings;
 
     public AGameAgent[] Agents;
@@ -28,7 +26,7 @@ public class Game : MonoBehaviour
     {
         Grid.Init();
         HomeBases = new[] {Grid.Grid[0], Grid.Grid[Grid.Grid.Length-1]};
-        
+         
         SpawnBuildingAtIndex(0,0);
         SpawnBuildingAtIndex(1,Grid.Grid.Length-1);
 
@@ -63,8 +61,9 @@ public class Game : MonoBehaviour
         CellData cell = Grid.GetCellData(coord);
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
-        Building go = Instantiate(Building, Grid.transform);
-        go.buildingConfig = buildings[Random.Range(0, buildings.Length)];
+        var buildingConfig = buildings[Random.Range(0, buildings.Length)];
+        Building go = Instantiate(buildingConfig.buildingPrefab, Grid.transform);
+        go.buildingConfig = buildingConfig;
         go.Team = player;
         cell.Building = go;
         go.SetMaterial(Materials[player]);

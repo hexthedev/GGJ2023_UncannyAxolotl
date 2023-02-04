@@ -18,4 +18,5 @@ MonoBehaviour:
   Damage: 10
   MoveSpeed: 30
   attackInterval: 0
-  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  unitPrefab: {fileID: 6991721709066833928, guid: c6f8b96e298dc3145a90000fcd57d402,
+    type: 3}

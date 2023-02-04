@@ -47,7 +47,7 @@ public class Building : MonoBehaviour
 
         void Spawn()
         {
-            AgentBehaviour mt = Instantiate(Agent, transform);
+            AgentBehaviour mt = Instantiate(buildingConfig.unitConfig.unitPrefab, transform);
             mt.UnitConfig = buildingConfig.unitConfig;
             mt.Team = Team;
             mt.EnemyBase = enemyBase;

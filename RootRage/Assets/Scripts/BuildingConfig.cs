@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "UncannyAxolotl/Buildings/BuildingConfig")]
 public class BuildingConfig : ScriptableObject
 {
-    public Mesh mesh;
     public float HP;
+    public Building buildingPrefab;
     public UnitConfig unitConfig;
 }
