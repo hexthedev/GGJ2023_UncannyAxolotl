@@ -5,9 +5,11 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     public GridBehaviour Grid;
-    public GameObject Building;
+    public Building Building;
 
+    
     public AGameAgent[] Agents;
+    public Material[] Materials;
     
     List<int> _takenIndices = new();
 
@@ -44,7 +46,8 @@ public class Game : MonoBehaviour
         CellData cell = Grid.GetCellData(coord);
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
-        GameObject go = Instantiate(Building, Grid.transform);
+        Building go = Instantiate(Building, Grid.transform);
+        go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;
         _takenIndices.Add(coord);
     }
