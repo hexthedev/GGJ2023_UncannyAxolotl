@@ -42,6 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Game.cs" />
+     <Compile Include="Assets\Scripts\GameUtilities.cs" />
      <Folder Include="Assets" />
      <None Include="Assets\External\TextMesh Pro\Shaders\TMPro.cginc" />
      <Folder Include="Assets\Settings" />

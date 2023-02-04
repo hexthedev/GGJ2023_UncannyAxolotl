@@ -2,3 +2,6 @@ UserSettings/
 Temp/
 Logs/
 Library/
+Build/
+.idea/
+obj/
