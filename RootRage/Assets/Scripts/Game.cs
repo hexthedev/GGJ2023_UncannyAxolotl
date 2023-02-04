@@ -1,8 +1,7 @@
-using System.Collections.Generic;
-using System.Linq;
+using System;
 using DefaultNamespace;
+using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class Game : MonoBehaviour
 {
@@ -11,13 +10,15 @@ public class Game : MonoBehaviour
 
     public AGameAgent[] Agents;
     public Material[] Materials;
-
+    public TMP_Text[] TimerTexts;
 
     CellData[] HomeBases;
 
-    public float testInterval = 5;
+    public float choiceInterval = 5;
     public float spawnRate = 2;
 
+    TimerBehaviour _choiceTimer;
+    
     void Awake()
     {
         Grid.Init();
@@ -35,9 +36,9 @@ public class Game : MonoBehaviour
             Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
         }
 
-        var tb = gameObject.AddComponent<TimerBehaviour>();
-        tb.Interval = testInterval;
-        tb.Do = () =>
+        _choiceTimer = gameObject.AddComponent<TimerBehaviour>();
+        _choiceTimer.Interval = choiceInterval;
+        _choiceTimer.Do = () =>
         {
             foreach (AGameAgent aGameAgent in Agents)
                 aGameAgent.MakeBuildingDecision(Grid);
@@ -62,5 +63,11 @@ public class Game : MonoBehaviour
         cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;
+    }
+
+    void Update()
+    {
+        foreach (TMP_Text tmpText in TimerTexts)
+            tmpText.text = $"{_choiceTimer.CurrentTime.ToString("F1")}/{_choiceTimer.Interval.ToString("F1")}";
     }
 }
