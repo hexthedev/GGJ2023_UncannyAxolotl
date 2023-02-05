@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
-    public AgentBehaviour Agent;
     public int Team;
 
     BuildingConfig _buildingConfig;
