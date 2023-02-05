@@ -408,13 +408,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 440230863600834137, guid: cd04d1eab0e94dc448794bc80779b6bf, type: 3}
   lifeBar: {fileID: 5159351832069157678}
-  Team: 0
+  unitMats:
+  - {fileID: 2100000, guid: 74b9911d5defd4787ae30677bc4d068d, type: 2}
+  - {fileID: 2100000, guid: b5a39c0befa03164e95d0ba45d63fc9d, type: 2}
   TargetAgent: {fileID: 0}
   TargetBuilding: {fileID: 0}
   EnemyBase: {fileID: 0}
   UnitConfig: {fileID: 0}
   currentHP: 0
   text: {fileID: 5231951521991123595}
+  _renderer: {fileID: 506676186558127703}
 --- !u!1001 &3295767184524341411
 PrefabInstance:
   m_ObjectHideFlags: 0
