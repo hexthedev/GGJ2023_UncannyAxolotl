@@ -175,11 +175,14 @@ public class AgentBehaviour : MonoBehaviour
             return;
         }
 
-        if (EnemyBase != null)
-        {
-            agent.destination = EnemyBase.transform.position;
-            agent.isStopped = false;
-        }
+        // if (EnemyBase != null)
+        // {
+        //     agent.destination = EnemyBase.transform.position;
+        //     agent.isStopped = false;
+        // }
+        
+        if(TargetBuilding == null && TargetAgent == null)
+            transform.rotation *= Quaternion.Euler(0,1 * Time.deltaTime * 1000,0);
     }
 
     void StartAttack(Building target)

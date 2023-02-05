@@ -727,7 +727,7 @@ MonoBehaviour:
   Materials:
   - {fileID: 2100000, guid: de5cb5cc0e6317346b38ec4a384f0474, type: 2}
   - {fileID: 2100000, guid: 4681ac45e01751040bd366340ea7cef9, type: 2}
-  enemyChoiceInterval: 7
+  enemyChoiceInterval: 6
   playerResourceGainPerSecond: 1
   playerMaxResource: 10
   GameOverScreen: {fileID: 634245721}
