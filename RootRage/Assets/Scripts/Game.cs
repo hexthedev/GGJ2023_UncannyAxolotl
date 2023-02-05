@@ -11,18 +11,24 @@ public class Game : MonoBehaviour
 
     public AGameAgent[] Agents;
     public Material[] Materials;
-    public TMP_Text[] TimerTexts;
-
+    
     CellData[] HomeBases;
 
-    public float choiceInterval = 5;
     public float spawnRate = 2;
 
-    TimerBehaviour _choiceTimer;
+    public float enemyChoiceInterval;
+    TimerBehaviour _enemyTimer;
 
-    public GameOverSceen GameOverScreen; 
+    public float playerResourceGainPerSecond;
+    public float playerMaxResource;
+    TimerBehaviour _playerTimer;
+
+    public GameOverSceen GameOverScreen;
+    public PlayerUIController PlayerUI;
     
     public UnitConfig[] UnitConfigs;
+
+    bool isChoosingSpace = false;
     
     void Awake()
     {
@@ -41,19 +47,32 @@ public class Game : MonoBehaviour
             Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
         }
 
-        _choiceTimer = gameObject.AddComponent<TimerBehaviour>();
-        _choiceTimer.Interval = choiceInterval;
-        _choiceTimer.Do = () =>
-        {
-            foreach (AGameAgent aGameAgent in Agents)
-                aGameAgent.MakeBuildingDecision(Grid);
-        };
+        _enemyTimer = gameObject.AddComponent<TimerBehaviour>();
+        _enemyTimer.Interval = enemyChoiceInterval;
+        _enemyTimer.Do = () => Agents[1].MakeBuildingDecision(Grid);
+
+        _playerTimer = gameObject.AddComponent<TimerBehaviour>();
+        _playerTimer.Interval = float.PositiveInfinity;
+        
+        PlayerUI.OnBuildingClicked += PlayerUIOnOnBuildingClicked;
     }
 
-    
-    
+    void PlayerUIOnOnBuildingClicked(int obj)
+    {
+        isChoosingSpace = true;
+        
+        Agents[0].MakeBuildingDecision(Grid);
+    }
+
+
     void HandlePlaceBuild(int player, int coord)
     {
+        if (player == 0)
+        {
+            _playerTimer.CurrentTime = 0;
+            isChoosingSpace = false;
+        }
+        
         SpawnBuildingAtIndex(player, coord);
 
         CellData data = Grid.Grid[coord];
@@ -76,8 +95,9 @@ public class Game : MonoBehaviour
 
     void Update()
     {
-        foreach (TMP_Text tmpText in TimerTexts)
-            tmpText.text = $"{_choiceTimer.CurrentTime.ToString("F1")}/{_choiceTimer.Interval.ToString("F1")}";
+        // update the player ui
+        if(!isChoosingSpace)
+            PlayerUI.SetResource(_playerTimer.CurrentTime/playerMaxResource);
 
         for (var i = 0; i < HomeBases.Length; i++)
         {

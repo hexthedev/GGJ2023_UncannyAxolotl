@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\NavMeshUtil.cs" />
      <Compile Include="Assets\Scripts\AgentBehaviour.cs" />
      <Compile Include="Assets\Scripts\GameOverSceen.cs" />
+     <Compile Include="Assets\Scripts\PlayerUIController.cs" />
      <None Include="Assets\Scripts\Axolotyl.asmdef" />
      <Folder Include="Assets\Scripts" />
      <Folder Include="Assets\Scripts\Agents" />
