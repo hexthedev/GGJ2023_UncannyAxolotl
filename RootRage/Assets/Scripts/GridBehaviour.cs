@@ -98,4 +98,12 @@ public class GridBehaviour : MonoBehaviour
 
         return neighbours[..pointer];
     }
+
+
+    void Update()
+    {
+        foreach (CellData cellData in Grid)
+            if (cellData.Building == null)
+                cellData.IsOccupied = false;
+    }
 }
