@@ -15,9 +15,9 @@ MonoBehaviour:
   Range: 4
   Cost: 60
   HP: 30
-  Damage: 10
+  Damage: 3
   MoveSpeed: 30
-  attackInterval: 1
+  attackInterval: 2
   FocusBuildings: 0
   CanAttackFlying: 1
   Flying: 0

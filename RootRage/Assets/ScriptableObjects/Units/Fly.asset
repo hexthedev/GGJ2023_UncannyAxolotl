@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 1
   Cost: 100
-  HP: 20
+  HP: 5
   Damage: 10
   MoveSpeed: 100
   attackInterval: 1
