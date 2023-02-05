@@ -66,14 +66,14 @@ public class AgentBehaviour : MonoBehaviour
     {
         float distance = (target.transform.position - transform.position).magnitude;
 
-        return distance < 1f;
+        return distance < Mathf.Max(1f, UnitConfig.Range);
     }
 
     bool CanIAttack(Building target)
     {
         float distance = (target.transform.position - transform.position).magnitude;
 
-        return distance < 2f;
+        return distance < Mathf.Max(2f, UnitConfig.Range);
     }
 
     void MoveTowards(AgentBehaviour target)
