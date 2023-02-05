@@ -15,8 +15,8 @@ namespace DefaultNamespace
 
             if (CurrentTime >= Interval)
             {
-                Do();
                 CurrentTime = 0;
+                Do();
             }
         }
     }

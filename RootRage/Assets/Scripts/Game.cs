@@ -35,6 +35,9 @@ public class Game : MonoBehaviour
 
     BuildingConfig playerLastChosenBuilding = null;
     
+    public AudioSource placeBuilding;
+    public AudioSource gameOver;
+        
     public void ResetGame()
     {
         // Cleanup
@@ -64,7 +67,11 @@ public class Game : MonoBehaviour
 
         _enemyTimer = gameObject.AddComponent<TimerBehaviour>();
         _enemyTimer.Interval = enemyChoiceInterval;
-        _enemyTimer.Do = () => Agents[1].MakeBuildingDecision(Grid);
+        _enemyTimer.Do = () =>
+        {
+            Agents[1].MakeBuildingDecision(Grid);
+            _enemyTimer.CurrentTime += Random.Range(-2, 2);
+        };
 
         _playerTimer = gameObject.AddComponent<TimerBehaviour>();
         _playerTimer.Interval = float.PositiveInfinity;
@@ -94,6 +101,8 @@ public class Game : MonoBehaviour
 
     void HandlePlaceBuild(int player, int coord)
     {
+        AudioSource s = Instantiate(placeBuilding);
+        s.Play();
         if (player == 0)
         {
             _playerTimer.CurrentTime = 0;
@@ -147,11 +156,13 @@ public class Game : MonoBehaviour
 
     void GameOverForPlayer(int i)
     {
+        AudioSource s = Instantiate(gameOver);
+        s.Play();
         // Stop the choice loop. 
         Destroy(GetComponent<TimerBehaviour>());
         
         // Show a message on the screen
-        string message = i == 1 ? "You have saved the forest!" : "Oh no! The forest has been take. You lose";
+        string message = i == 1 ? "You have saved the forest! :)" : "The forest has been taken :(";
         
         GameOverScreen.SetText(message);
         GameOverScreen.Show();

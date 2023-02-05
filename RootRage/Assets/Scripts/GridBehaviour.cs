@@ -102,8 +102,11 @@ public class GridBehaviour : MonoBehaviour
 
     void Update()
     {
-        foreach (CellData cellData in Grid)
-            if (cellData.Building == null)
-                cellData.IsOccupied = false;
+        if (Grid != null)
+        {
+            foreach (CellData cellData in Grid)
+                if (cellData.Building == null)
+                    cellData.IsOccupied = false;
+        }
     }
 }

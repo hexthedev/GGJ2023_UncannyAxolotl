@@ -36,6 +36,7 @@ public class AgentBehaviour : MonoBehaviour
     private NavMeshAgent agent;
     public TMP_Text text;
     public MeshRenderer _renderer;
+    public AudioSource DeathSound;
 
     void Start()
     {
@@ -137,6 +138,12 @@ public class AgentBehaviour : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            var randomNumber = Random.Range(0, 5);
+            if (randomNumber == 1)
+            {
+                AudioSource s = Instantiate(DeathSound);
+                s.Play();
+            };
             Destroy(gameObject);
             return;
         }

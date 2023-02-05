@@ -8,7 +8,10 @@ public class Building : MonoBehaviour
     public GameObject DestroyedTree;
 
     BuildingConfig _buildingConfig;
+
+    public AudioSource buildingCollapse;
     public BuildingConfig buildingConfig
+    
     {
         get => _buildingConfig;
         set
@@ -32,6 +35,8 @@ public class Building : MonoBehaviour
             {
                 Instantiate(DestroyedTree, transform.position, Quaternion.identity);
             }
+            AudioSource s = Instantiate(buildingCollapse);
+            s.Play();
             Destroy(gameObject);
         }
         text.text = $"{currentHP}";
