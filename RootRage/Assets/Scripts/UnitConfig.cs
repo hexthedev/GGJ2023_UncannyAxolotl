@@ -11,5 +11,8 @@ public class UnitConfig : ScriptableObject
     public float Damage;
     public float MoveSpeed;
     public float attackInterval;
+    public bool FocusBuildings;
+    public bool CanAttackFlying;
+    public bool Flying;
     public AgentBehaviour unitPrefab;
 }

@@ -18,5 +18,8 @@ MonoBehaviour:
   Damage: 10
   MoveSpeed: 30
   attackInterval: 1
+  FocusBuildings: 1
+  CanAttackFlying: 1
+  Flying: 1
   unitPrefab: {fileID: 6991721709066833928, guid: c6f8b96e298dc3145a90000fcd57d402,
     type: 3}

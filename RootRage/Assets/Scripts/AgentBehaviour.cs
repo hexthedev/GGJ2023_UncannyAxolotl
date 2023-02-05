@@ -33,10 +33,27 @@ public class AgentBehaviour : MonoBehaviour
         agent.autoBraking = false;
     }
 
-    void FindTarget()
+    Building FindBuildingTarget()
     {
-        if (TargetAgent != null || TargetBuilding != null) { return; }
+        var hits = Physics.SphereCastAll(
+            transform.position,
+            5f,
+            transform.forward
+        );
 
+        var buildings = hits
+            .Select(h => h.collider.gameObject.GetComponent<Building>())
+            .Where(b => b != null)
+            .Where(b => b.Team != Team);
+
+        if (buildings.Any())
+            return buildings.First();
+
+        return null;
+    }
+
+    AgentBehaviour FindUnitTarget()
+    {
         var hits = Physics.SphereCastAll(
             transform.position,
             1f,
@@ -47,21 +64,31 @@ public class AgentBehaviour : MonoBehaviour
         var agents = hits
             .Select(a => a.collider.gameObject.GetComponent<AgentBehaviour>())
             .Where(a => a != null)
+            .Where(a => (a.UnitConfig.Flying && UnitConfig.CanAttackFlying) || !a.UnitConfig.Flying)
             .Where(a => a.Team != Team);
 
         if (agents.Any())
         {
-            TargetAgent = agents.First();
-            return;
+            return agents.First();
+        }
+        return null;
+    }
+
+    void FindTarget()
+    {
+        if (TargetAgent != null) { return; }
+
+        if (UnitConfig.FocusBuildings) {
+            if (TargetBuilding != null) { return; }
+            TargetBuilding = FindBuildingTarget();
+            if (TargetBuilding != null) { return; }
         }
 
-        var buildings = hits
-            .Select(h => h.collider.gameObject.GetComponent<Building>())
-            .Where(b => b != null)
-            .Where(b => b.Team != Team);
+        TargetAgent = FindUnitTarget();
 
-        if (buildings.Any())
-            TargetBuilding = buildings.First();
+        if (TargetAgent != null) { return; }
+
+        TargetBuilding = FindBuildingTarget();
     }
 
     bool CanIAttack(AgentBehaviour target)
@@ -156,7 +183,7 @@ public class AgentBehaviour : MonoBehaviour
                 bullet.startPosition = transform.position;
                 bullet.endPosition = target.transform.position;
             }
-            
+
             if (target == null)
             {
                 Destroy(damageTimer);
