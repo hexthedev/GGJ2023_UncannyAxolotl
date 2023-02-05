@@ -25,6 +25,7 @@ public class AgentBehaviour : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         currentHP = UnitConfig.HP;
+        agent.speed = Mathf.Min(1, UnitConfig.MoveSpeed / 100);
         // Disabling auto-braking allows for continuous movement
         // between points (ie, the agent doesn't slow down as it
         // approaches a destination point).
