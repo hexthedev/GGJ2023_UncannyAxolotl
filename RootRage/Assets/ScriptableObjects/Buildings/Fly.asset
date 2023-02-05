@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fly
   m_EditorClassIdentifier: 
   HP: 500
+  SpawnInterval: 1
   buildingPrefab: {fileID: 2631770343230101262, guid: e77a74dbbf0c8c24e9b13ad69b03adb9,
     type: 3}
   unitConfig: {fileID: 11400000, guid: 3e15452e0d4ca5d45991099ef9abc6ee, type: 2}
