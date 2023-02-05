@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Codice.Client.BaseCommands;
 using DefaultNamespace;
 using TMPro;
 using UnityEngine;
@@ -29,9 +31,28 @@ public class Game : MonoBehaviour
     public UnitConfig[] UnitConfigs;
 
     bool isChoosingSpace = false;
+
+    public List<Building> SpawnedBuildings = new();
+
+    bool isFirstInit = false;
     
-    void Awake()
+    public void ResetGame()
     {
+        // Cleanup
+        foreach (TimerBehaviour timerBehaviour in gameObject.GetComponents<TimerBehaviour>())
+            Destroy(timerBehaviour);
+
+        foreach (Building spawnedBuilding in SpawnedBuildings)
+        {
+            if(spawnedBuilding != null)
+                Destroy(spawnedBuilding.gameObject);
+        }
+        
+        SpawnedBuildings.Clear();
+
+        GameOverScreen.gameObject.SetActive(false);
+
+        // Start
         Grid.Init();
         HomeBases = new[] {Grid.Grid[0], Grid.Grid[Grid.Grid.Length-1]};
          
@@ -41,11 +62,6 @@ public class Game : MonoBehaviour
         foreach (CellData homeBase in HomeBases)
             homeBase.Building.StartSpawnUnit(spawnRate, HomeBases[(homeBase.Index+1)%2].Building.transform);
 
-        for (var i = 0; i < Agents.Length; i++)
-        {
-            Agents[i].Init(i, Grid);
-            Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
-        }
 
         _enemyTimer = gameObject.AddComponent<TimerBehaviour>();
         _enemyTimer.Interval = enemyChoiceInterval;
@@ -54,7 +70,18 @@ public class Game : MonoBehaviour
         _playerTimer = gameObject.AddComponent<TimerBehaviour>();
         _playerTimer.Interval = float.PositiveInfinity;
         
-        PlayerUI.OnBuildingClicked += PlayerUIOnOnBuildingClicked;
+        // events
+        if (!isFirstInit)
+        {
+            for (var i = 0; i < Agents.Length; i++)
+            {
+                Agents[i].Init(i, Grid);
+                Agents[i].OnDecidePlaceBuilding += HandlePlaceBuild;
+            }
+            PlayerUI.OnBuildingClicked += PlayerUIOnOnBuildingClicked;
+        }
+
+        isFirstInit = true;
     }
 
     void PlayerUIOnOnBuildingClicked(int obj)
@@ -85,16 +112,21 @@ public class Game : MonoBehaviour
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
         var buildingConfig = buildings[Random.Range(0, buildings.Length)];
+        
         Building go = Instantiate(buildingConfig.buildingPrefab, Grid.transform);
         go.buildingConfig = buildingConfig;
         go.Team = player;
         cell.Building = go;
         go.SetMaterial(Materials[player]);
         go.transform.localPosition = cell.Position - Vector3.up;
+        SpawnedBuildings.Add(go);
     }
 
     void Update()
     {
+        if (!isFirstInit)
+            return;
+        
         // update the player ui
         if(!isChoosingSpace)
             PlayerUI.SetResource(_playerTimer.CurrentTime/playerMaxResource);

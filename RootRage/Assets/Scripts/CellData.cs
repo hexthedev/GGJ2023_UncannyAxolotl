@@ -8,4 +8,11 @@ public class CellData
     public Vector3 Position;
     public bool IsOccupied;
     public Building Building;
+
+    public void ResetForNewGame()
+    {
+        PlayerIndex = 0;
+        IsOccupied = false;
+        Building = null;
+    }
 }

@@ -6,18 +6,23 @@ public class Building : MonoBehaviour
 {
     public AgentBehaviour Agent;
     public int Team;
-    public BuildingConfig buildingConfig;
-    
+
+    BuildingConfig _buildingConfig;
+    public BuildingConfig buildingConfig
+    {
+        get => _buildingConfig;
+        set
+        {
+            _buildingConfig = value;
+            currentHP = value.HP;
+        }
+    }
+
     public MeshRenderer mr;
 
     public float currentHP;
     TimerBehaviour t;
     public TMP_Text text;
-    
-    void Start()
-    {
-        currentHP = buildingConfig.HP;
-    }
 
     void Update()
     {

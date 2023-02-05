@@ -43,6 +43,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\BuildingConfig.cs" />
      <Compile Include="Assets\Scripts\GameUtilities.cs" />
+     <Compile Include="Assets\Scripts\GameOverSceen.cs" />
      <Compile Include="Assets\Scripts\TimerBehaviour.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
      <Compile Include="Assets\Scripts\lifeBar.cs" />
@@ -55,11 +56,10 @@
      <Compile Include="Assets\Scripts\CellData.cs" />
      <Compile Include="Assets\Scripts\Agents\EnemyRandomAgent.cs" />
      <Compile Include="Assets\Scripts\Building.cs" />
+     <Compile Include="Assets\Scripts\PlayerUIController.cs" />
      <Compile Include="Assets\Scripts\Game.cs" />
      <Compile Include="Assets\Scripts\NavMeshUtil.cs" />
      <Compile Include="Assets\Scripts\AgentBehaviour.cs" />
-     <Compile Include="Assets\Scripts\GameOverSceen.cs" />
-     <Compile Include="Assets\Scripts\PlayerUIController.cs" />
      <None Include="Assets\Scripts\Axolotyl.asmdef" />
      <Folder Include="Assets\Scripts" />
      <Folder Include="Assets\Scripts\Agents" />

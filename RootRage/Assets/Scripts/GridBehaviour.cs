@@ -16,9 +16,19 @@ public class GridBehaviour : MonoBehaviour
     
     public CellData[] Grid;
 
+    bool isGridSpawned = false;
+    
     public void Init()
     {
-        SpawnGrid();
+        if (!isGridSpawned)
+        {
+            SpawnGrid();
+            isGridSpawned = true;
+        }
+        
+        foreach (CellData cellData in Grid)
+            cellData.ResetForNewGame();
+        
         SetInteractable();
     }
 
