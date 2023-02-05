@@ -9,6 +9,7 @@ using UnityEngine.AI;
 
 public class AgentBehaviour : MonoBehaviour
 {
+    public Bullet bullet;
     public int Team;
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
@@ -148,6 +149,14 @@ public class AgentBehaviour : MonoBehaviour
         void Attack()
         {
             Debug.Log("Deal damage to a building");
+
+            if (target != null)
+            {
+                Bullet bullet = Instantiate(this.bullet);
+                bullet.startPosition = transform.position;
+                bullet.endPosition = target.transform.position;
+            }
+            
             if (target == null)
             {
                 Destroy(damageTimer);
@@ -167,6 +176,15 @@ public class AgentBehaviour : MonoBehaviour
         void Attack()
         {
             Debug.Log("Deal damage to an agent");
+
+
+            if (target != null)
+            {
+                Bullet bullet = Instantiate(this.bullet);
+                bullet.startPosition = transform.position;
+                bullet.endPosition = target.transform.position;
+            }
+
             if (target == null)
             {
                 Destroy(damageTimer);

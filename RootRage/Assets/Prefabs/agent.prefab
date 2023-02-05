@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2ab36f64d3b945d79b9b749c3193b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bullet: {fileID: 440230863600834137, guid: cd04d1eab0e94dc448794bc80779b6bf, type: 3}
   Team: 0
   TargetAgent: {fileID: 0}
   TargetBuilding: {fileID: 0}
