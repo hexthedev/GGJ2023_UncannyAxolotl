@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31e7b8e370ca49e469606a8456e98242, type: 3}
-  m_Name: Nest
+  m_Name: Range
   m_EditorClassIdentifier: 
-  HP: 200
-  buildingPrefab: {fileID: 2631770343230101262, guid: 4bb8b927e8de8444cb91db9059da4ff1,
+  HP: 500
+  buildingPrefab: {fileID: 2631770343230101262, guid: 023f3fa09d19b6c4ea548968e7bd0858,
     type: 3}
-  unitConfig: {fileID: 11400000, guid: 3e15452e0d4ca5d45991099ef9abc6ee, type: 2}
+  unitConfig: {fileID: 11400000, guid: ae81a7af1558a4043ad28bba0fcd304c, type: 2}

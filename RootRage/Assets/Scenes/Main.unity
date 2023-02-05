@@ -630,8 +630,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Grid: {fileID: 1098504793}
   buildings:
-  - {fileID: 11400000, guid: 4264cdead3647484686a65eeb04cf0af, type: 2}
+  - {fileID: 11400000, guid: d48a774c1a016564989c2a135e270720, type: 2}
   - {fileID: 11400000, guid: 26cda7df7d35ce8408fa69c151d61671, type: 2}
+  - {fileID: 11400000, guid: c398f2eb6e261f84abae53348ed118bd, type: 2}
+  - {fileID: 11400000, guid: 4264cdead3647484686a65eeb04cf0af, type: 2}
   Agents:
   - {fileID: 11400000, guid: 26afdf841a03ef64b9c86d1cf7d9b218, type: 2}
   - {fileID: 11400000, guid: ee837d9de0c64564f96f8158cabba672, type: 2}
@@ -1161,6 +1163,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820313241762541680, guid: 97c9c4d100057534b830ddf065ff426f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820313241845942380, guid: 97c9c4d100057534b830ddf065ff426f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5820313242257501663, guid: 97c9c4d100057534b830ddf065ff426f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97c9c4d100057534b830ddf065ff426f, type: 3}

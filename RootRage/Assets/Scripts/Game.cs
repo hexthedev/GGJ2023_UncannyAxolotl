@@ -35,6 +35,8 @@ public class Game : MonoBehaviour
     public List<Building> SpawnedBuildings = new();
 
     bool isFirstInit = false;
+
+    BuildingConfig playerLastChosenBuilding = null;
     
     public void ResetGame()
     {
@@ -56,8 +58,8 @@ public class Game : MonoBehaviour
         Grid.Init();
         HomeBases = new[] {Grid.Grid[0], Grid.Grid[Grid.Grid.Length-1]};
          
-        SpawnBuildingAtIndex(0,0);
-        SpawnBuildingAtIndex(1,Grid.Grid.Length-1);
+        SpawnBuildingAtIndex(0,0, buildings[0]);
+        SpawnBuildingAtIndex(1,Grid.Grid.Length-1, buildings[0]);
 
         foreach (CellData homeBase in HomeBases)
             homeBase.Building.StartSpawnUnit(spawnRate, HomeBases[(homeBase.Index+1)%2].Building.transform);
@@ -87,7 +89,8 @@ public class Game : MonoBehaviour
     void PlayerUIOnOnBuildingClicked(int obj)
     {
         isChoosingSpace = true;
-        
+
+        playerLastChosenBuilding = buildings[obj];
         Agents[0].MakeBuildingDecision(Grid);
     }
 
@@ -100,21 +103,26 @@ public class Game : MonoBehaviour
             isChoosingSpace = false;
         }
         
-        SpawnBuildingAtIndex(player, coord);
+        SpawnBuildingAtIndex(
+            player, 
+            coord,
+            player == 0 ? 
+                playerLastChosenBuilding :
+                buildings[Random.Range(0, buildings.Length)]
+        );
 
         CellData data = Grid.Grid[coord];
         data.Building.StartSpawnUnit(spawnRate, HomeBases[(data.Index+1)%2].Building.transform);
     }
 
-    void SpawnBuildingAtIndex(int player, int coord)
+    void SpawnBuildingAtIndex(int player, int coord, BuildingConfig building)
     {
         CellData cell = Grid.GetCellData(coord);
         cell.PlayerIndex = player;
         cell.IsOccupied = true;
-        var buildingConfig = buildings[Random.Range(0, buildings.Length)];
-        
-        Building go = Instantiate(buildingConfig.buildingPrefab, Grid.transform);
-        go.buildingConfig = buildingConfig;
+
+        Building go = Instantiate(building.buildingPrefab, Grid.transform);
+        go.buildingConfig = building;
         go.Team = player;
         cell.Building = go;
         go.SetMaterial(Materials[player]);
