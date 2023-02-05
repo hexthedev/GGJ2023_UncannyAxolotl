@@ -10,6 +10,7 @@ using UnityEngine.AI;
 public class AgentBehaviour : MonoBehaviour
 {
     public Bullet bullet;
+    public lifeBar lifeBar;
     public int Team;
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
@@ -24,6 +25,7 @@ public class AgentBehaviour : MonoBehaviour
 
     void Start()
     {
+        lifeBar.totalhp = UnitConfig.HP;
         agent = GetComponent<NavMeshAgent>();
         currentHP = UnitConfig.HP;
         agent.speed = Mathf.Min(1, UnitConfig.MoveSpeed / 100);
@@ -148,8 +150,6 @@ public class AgentBehaviour : MonoBehaviour
 
         void Attack()
         {
-            Debug.Log("Deal damage to a building");
-
             if (target != null)
             {
                 Bullet bullet = Instantiate(this.bullet);
@@ -175,9 +175,6 @@ public class AgentBehaviour : MonoBehaviour
 
         void Attack()
         {
-            Debug.Log("Deal damage to an agent");
-
-
             if (target != null)
             {
                 Bullet bullet = Instantiate(this.bullet);
@@ -190,12 +187,17 @@ public class AgentBehaviour : MonoBehaviour
                 Destroy(damageTimer);
                 return;
             }
-            target.currentHP -= UnitConfig.Damage;
+            target.DoDamage(UnitConfig.Damage);
         }
 
     }
 
-
+    public void DoDamage(float Damage)
+    {
+        currentHP -= Damage;
+        lifeBar.DoDamage(Damage);
+    }
+    
     void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position, 0.1f);

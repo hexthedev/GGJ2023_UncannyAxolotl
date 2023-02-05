@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Range
   m_EditorClassIdentifier: 
   HP: 500
-  SpawnInterval: 3
+  SpawnInterval: 2
   buildingPrefab: {fileID: 2631770343230101262, guid: 023f3fa09d19b6c4ea548968e7bd0858,
     type: 3}
   unitConfig: {fileID: 11400000, guid: ae81a7af1558a4043ad28bba0fcd304c, type: 2}

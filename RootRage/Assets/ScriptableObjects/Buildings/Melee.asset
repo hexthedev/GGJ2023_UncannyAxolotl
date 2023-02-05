@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Melee
   m_EditorClassIdentifier: 
   HP: 200
-  SpawnInterval: 2
+  SpawnInterval: 4
   buildingPrefab: {fileID: 2631770343230101262, guid: 4bb8b927e8de8444cb91db9059da4ff1,
     type: 3}
   unitConfig: {fileID: 11400000, guid: a1692cc7bacf16349bbc7ebcd984a1cf, type: 2}

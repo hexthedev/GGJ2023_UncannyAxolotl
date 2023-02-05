@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &525137790117158534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -407,6 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 440230863600834137, guid: cd04d1eab0e94dc448794bc80779b6bf, type: 3}
+  lifeBar: {fileID: 5159351832069157678}
   Team: 0
   TargetAgent: {fileID: 0}
   TargetBuilding: {fileID: 0}
@@ -503,6 +504,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ae05231f0124f14eb17dfcd2ad289bc, type: 3}
+--- !u!114 &5159351832069157678 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7648618416639067021, guid: 5ae05231f0124f14eb17dfcd2ad289bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 3295767184524341411}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de82e430bea2a407695ff534baa68bff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &5159351832069157682 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7648618416639067025, guid: 5ae05231f0124f14eb17dfcd2ad289bc,
