@@ -259,13 +259,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 440230863600834137, guid: cd04d1eab0e94dc448794bc80779b6bf, type: 3}
   lifeBar: {fileID: 5159351832069157678}
-  Team: 0
+  unitMats:
+  - {fileID: 2100000, guid: 74b9911d5defd4787ae30677bc4d068d, type: 2}
+  - {fileID: 2100000, guid: b5a39c0befa03164e95d0ba45d63fc9d, type: 2}
   TargetAgent: {fileID: 0}
   TargetBuilding: {fileID: 0}
   EnemyBase: {fileID: 0}
   UnitConfig: {fileID: 0}
   currentHP: 0
   text: {fileID: 5231951521991123595}
+  _renderer: {fileID: 6524047092794392697}
 --- !u!1001 &3295767184524341411
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -450,6 +453,12 @@ PrefabInstance:
 --- !u!4 &5386655484012002070 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8e9a6deb3cd424ec7adda8c79677486b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5569694768995015933}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6524047092794392697 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 8e9a6deb3cd424ec7adda8c79677486b,
     type: 3}
   m_PrefabInstance: {fileID: 5569694768995015933}
   m_PrefabAsset: {fileID: 0}

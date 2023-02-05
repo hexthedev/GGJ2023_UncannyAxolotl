@@ -16,7 +16,7 @@ MonoBehaviour:
   Cost: 100
   HP: 20
   Damage: 10
-  MoveSpeed: 30
+  MoveSpeed: 100
   attackInterval: 1
   FocusBuildings: 1
   CanAttackFlying: 1

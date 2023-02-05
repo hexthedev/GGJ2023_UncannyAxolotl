@@ -11,7 +11,20 @@ public class AgentBehaviour : MonoBehaviour
 {
     public Bullet bullet;
     public lifeBar lifeBar;
-    public int Team;
+    public Material[] unitMats;
+    
+    int _team;
+
+    public int Team
+    {
+        get => _team;
+        set
+        {
+            _team = value;
+            SetTeamMaterial(_team);
+        }
+    }
+    
     public AgentBehaviour TargetAgent;
     public Building TargetBuilding;
     public Transform EnemyBase;
@@ -22,6 +35,7 @@ public class AgentBehaviour : MonoBehaviour
 
     private NavMeshAgent agent;
     public TMP_Text text;
+    public MeshRenderer _renderer;
 
     void Start()
     {
@@ -223,6 +237,15 @@ public class AgentBehaviour : MonoBehaviour
     {
         currentHP -= Damage;
         lifeBar.DoDamage(Damage);
+    }
+
+    public void SetTeamMaterial(int team)
+    {
+        Material mat = unitMats[team];
+
+        MeshRenderer mr = _renderer;
+        if (mr != null)
+            mr.material = mat;
     }
     
     void OnDrawGizmos()

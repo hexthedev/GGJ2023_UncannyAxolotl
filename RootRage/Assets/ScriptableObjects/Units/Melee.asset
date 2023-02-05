@@ -16,7 +16,10 @@ MonoBehaviour:
   Cost: 50
   HP: 70
   Damage: 15
-  MoveSpeed: 60
+  MoveSpeed: 80
   attackInterval: 1
+  FocusBuildings: 0
+  CanAttackFlying: 0
+  Flying: 0
   unitPrefab: {fileID: 6991721709066833928, guid: 813cab65f67f74438b61636c1290390b,
     type: 3}

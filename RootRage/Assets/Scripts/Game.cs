@@ -106,7 +106,7 @@ public class Game : MonoBehaviour
             coord,
             player == 0 ? 
                 playerLastChosenBuilding :
-                buildings[Random.Range(0, buildings.Length)]
+                buildings[Random.Range(1, buildings.Length)]
         );
 
         CellData data = Grid.Grid[coord];
