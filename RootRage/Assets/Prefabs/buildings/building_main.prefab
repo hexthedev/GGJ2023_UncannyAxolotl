@@ -281,8 +281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5e081526177b444a7e27890df9b2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 6991721709066833928, guid: 813cab65f67f74438b61636c1290390b, type: 3}
   Team: 0
+  DestroyedTree: {fileID: 3565795509941322785, guid: a93eb8627c9b8934195739bb720e5bf8,
+    type: 3}
   mr: {fileID: 6231010425231696823}
   currentHP: 0
   text: {fileID: 2919629379808915836}
@@ -373,6 +374,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: de5cb5cc0e6317346b38ec4a384f0474, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 6e119f88d35a04ba6bb44412bbd803f3,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 7352743313293951598, guid: 6e119f88d35a04ba6bb44412bbd803f3,
+        type: 3}
     - target: {fileID: -5436776902519676342, guid: 6e119f88d35a04ba6bb44412bbd803f3,
         type: 3}
       propertyPath: m_CastShadows
@@ -393,6 +400,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 375517915199365746, guid: 6e119f88d35a04ba6bb44412bbd803f3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 400932704442428761, guid: 6e119f88d35a04ba6bb44412bbd803f3,
         type: 3}
       propertyPath: m_CastShadows
@@ -402,6 +414,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: HomeTree
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6e119f88d35a04ba6bb44412bbd803f3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2348053109929956537, guid: 6e119f88d35a04ba6bb44412bbd803f3,
         type: 3}

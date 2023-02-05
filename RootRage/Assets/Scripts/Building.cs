@@ -5,6 +5,7 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public int Team;
+    public GameObject DestroyedTree;
 
     BuildingConfig _buildingConfig;
     public BuildingConfig buildingConfig
@@ -27,6 +28,10 @@ public class Building : MonoBehaviour
     {
         if (currentHP <= 0)
         {
+            if (DestroyedTree != null)
+            {
+                Instantiate(DestroyedTree, transform.position, Quaternion.identity);
+            }
             Destroy(gameObject);
         }
         text.text = $"{currentHP}";

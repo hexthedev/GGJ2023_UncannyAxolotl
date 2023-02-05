@@ -281,8 +281,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5e081526177b444a7e27890df9b2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 6991721709066833928, guid: 813cab65f67f74438b61636c1290390b, type: 3}
   Team: 0
+  DestroyedTree: {fileID: 0}
   mr: {fileID: 4393912767645170575}
   currentHP: 0
   text: {fileID: 2919629379808915836}
