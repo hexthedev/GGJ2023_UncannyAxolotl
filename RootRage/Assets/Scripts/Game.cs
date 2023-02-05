@@ -16,8 +16,6 @@ public class Game : MonoBehaviour
     
     CellData[] HomeBases;
 
-    public float spawnRate = 2;
-
     public float enemyChoiceInterval;
     TimerBehaviour _enemyTimer;
 
@@ -62,7 +60,7 @@ public class Game : MonoBehaviour
         SpawnBuildingAtIndex(1,Grid.Grid.Length-1, buildings[0]);
 
         foreach (CellData homeBase in HomeBases)
-            homeBase.Building.StartSpawnUnit(spawnRate, HomeBases[(homeBase.Index+1)%2].Building.transform);
+            homeBase.Building.StartSpawnUnit(HomeBases[(homeBase.Index+1)%2].Building.transform);
 
 
         _enemyTimer = gameObject.AddComponent<TimerBehaviour>();
@@ -112,7 +110,7 @@ public class Game : MonoBehaviour
         );
 
         CellData data = Grid.Grid[coord];
-        data.Building.StartSpawnUnit(spawnRate, HomeBases[(data.Index+1)%2].Building.transform);
+        data.Building.StartSpawnUnit(HomeBases[(data.Index+1)%2].Building.transform);
     }
 
     void SpawnBuildingAtIndex(int player, int coord, BuildingConfig building)

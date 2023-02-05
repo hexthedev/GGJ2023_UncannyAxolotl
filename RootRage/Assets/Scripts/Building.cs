@@ -41,13 +41,13 @@ public class Building : MonoBehaviour
         mr.material = m;
     }
     
-    public void StartSpawnUnit(float interval, Transform enemyBase)
+    public void StartSpawnUnit(Transform enemyBase)
     {
         if(t != null)
             Destroy(t);
 
         t = gameObject.AddComponent<TimerBehaviour>();
-        t.Interval = interval;
+        t.Interval = buildingConfig.SpawnInterval;
         t.Do = Spawn;
 
         void Spawn()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class BuildingConfig : ScriptableObject
 {
     public float HP;
+    public float SpawnInterval;
     public Building buildingPrefab;
     public UnitConfig unitConfig;
 }
