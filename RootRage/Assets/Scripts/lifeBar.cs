@@ -20,12 +20,21 @@ public class lifeBar : MonoBehaviour
     {
         _damage += damage;
         Shrink();
+        HideMAybe();
     }
-    
+
+    void HideMAybe()
+    {
+        if (_damage == 0)
+            GetComponent<MeshRenderer>().enabled = false;
+        else
+            GetComponent<MeshRenderer>().enabled = true;
+    }
+
     void Shrink()
     {
-        float damageprct = _damage * originalSize.z / totalhp;
-        Vector3 newSize = Transform.localScale- new Vector3(0,0,damageprct);
+        float damageprct = (totalhp-_damage) * originalSize.z / totalhp;
+        Vector3 newSize = originalSize - new Vector3(0,0,damageprct);
         Transform.localScale = newSize;
 
     }
