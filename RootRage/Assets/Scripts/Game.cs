@@ -20,6 +20,8 @@ public class Game : MonoBehaviour
 
     TimerBehaviour _choiceTimer;
 
+    public GameOverSceen GameOverScreen; 
+    
     public UnitConfig[] UnitConfigs;
     
     void Awake()
@@ -48,6 +50,8 @@ public class Game : MonoBehaviour
         };
     }
 
+    
+    
     void HandlePlaceBuild(int player, int coord)
     {
         SpawnBuildingAtIndex(player, coord);
@@ -74,5 +78,25 @@ public class Game : MonoBehaviour
     {
         foreach (TMP_Text tmpText in TimerTexts)
             tmpText.text = $"{_choiceTimer.CurrentTime.ToString("F1")}/{_choiceTimer.Interval.ToString("F1")}";
+
+        for (var i = 0; i < HomeBases.Length; i++)
+        {
+            if (HomeBases[i].Building == null || HomeBases[i].Building.currentHP <= 0)
+            {
+                GameOverForPlayer(i);
+            }
+        }
+    }
+
+    void GameOverForPlayer(int i)
+    {
+        // Stop the choice loop. 
+        Destroy(GetComponent<TimerBehaviour>());
+        
+        // Show a message on the screen
+        string message = i == 1 ? "You have saved the forest!" : "Oh no! The forest has been take. You lose";
+        
+        GameOverScreen.SetText(message);
+        GameOverScreen.Show();
     }
 }
